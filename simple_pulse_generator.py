@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#2020/11/24 Radosław Michoń - Simple pulse generator v0.1
+#2020/11/24 Radosław Michoń - Simple pulse generator v0.1 for pigpiod library
 
 import time
 import pigpio
