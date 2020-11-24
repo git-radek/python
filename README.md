@@ -1,2 +1,2 @@
 # python
-my python public scripts
+Radosław Michoń python public scripts
