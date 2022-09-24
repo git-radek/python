@@ -8,7 +8,6 @@
 import xmlrpc.client, argparse
 
 parser = argparse.ArgumentParser()
-parser.set_defaults(func=lambda x: parser.print_usage())
 parser.add_argument("-u", "--user", help="username", required=True)
 parser.add_argument("-p", "--password", help="password", required=True)
 parser.add_argument("-z", "--zone", help="zone", required=True)
