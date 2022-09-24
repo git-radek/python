@@ -1,16 +1,18 @@
 #!/usr/bin/python3
 # 2022/09/24 Radoslaw Michon.
 # Dynamic DNS update script for freedns.42.pl
-# Over time, many libs are deprecated e.g. xmlrpclib. Therefore, I changed the older python2 script to be compatible
-# with the modern approach (python3 + xmlrpc). I hope someone will enjoy it!
+# As time goes by a lot of libs gets depricated eg. xmlrpclib.
+# Therefore I've amended the legacy python2 script so it would be compatibile
+# with modern approach (Python3 + xmlrpc). I hope somebody will enjoy it.
 
 import xmlrpc.client, argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-u", "--user", help="username")
-parser.add_argument("-p", "--password", help="password")
-parser.add_argument("-z", "--zone", help="zone")
-parser.add_argument("-r", "--recordname", help="recordname")
+parser.set_defaults(func=lambda x: parser.print_usage())
+parser.add_argument("-u", "--user", help="username", required=True)
+parser.add_argument("-p", "--password", help="password", required=True)
+parser.add_argument("-z", "--zone", help="zone", required=True)
+parser.add_argument("-r", "--recordname", help="recordname", required=True)
 parser.add_argument("-o", "--oldaddress", help="old IP address - can be skipped if you are inserting/updating a record. Can be wildcard '*'.", default="*")
 parser.add_argument("-n", "--newaddress", help="new IP address - can be skipped if you are deleting a record. Can be \"<dynamic>\", server will use IP you're connecting from.", default="<dynamic>")
 parser.add_argument("-t", "--ttl", help="time to live <default: 600>", type=int, default=600)
@@ -35,6 +37,7 @@ def main():
             print(params)
             proxy.xname.updateArecord(params)
         except xmlrpc.client.Fault as e:
+            parser.print_help()
             print(e)
             exit(1)
 
